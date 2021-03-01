@@ -4,8 +4,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 /**
- * @author djer1
- *
+ * 
+ * @author djer13
  */
 public class MainFrame extends JFrame {
     /** serialVersionUID */
@@ -14,12 +14,11 @@ public class MainFrame extends JFrame {
     private JButton exit;
 
     public MainFrame() {
-        exit = new JButton("quit ?");//create button  
+        exit = new JButton("quitter ?");//create button  
         exit.setBounds(130, 100, 100, 40);
 
-        add(exit);//adding button on frame  
-        setSize(400, 500);
-        setLayout(null);
+        super.add(exit);//adding button on frame  
+        super.setSize(400, 500);
+        super.setLayout(null);
     }
-
 }
