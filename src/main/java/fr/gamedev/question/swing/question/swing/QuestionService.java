@@ -1,10 +1,11 @@
 package fr.gamedev.question.swing.question.swing;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -25,19 +26,25 @@ public class QuestionService {
         this.questionRestTemplate = theQuestionRestTemplate;
     }
 
+    /** Retrieve the next Question for UserId from the backEndServer. */
     public Question getQuestion(String userId) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(USER_GET_ONE_QUESTION_URL)
                 .queryParam("userLogin", userId).queryParam("projection", "askedQuestion");
 
-        AskedQuestion askedQuestion = questionRestTemplate.getForObject(builder.toUriString(), AskedQuestion.class);
         Question question = new Question();
+        Map<String, String> possibleAnswers = new HashMap<>();
+        try {
+            AskedQuestion askedQuestion = questionRestTemplate.getForObject(builder.toUriString(), AskedQuestion.class);
+            question.setQuestion(askedQuestion.getQuestion().getContent());
+            question.setQuestionId(askedQuestion.getId());
 
-        question.setQuestion(askedQuestion.getQuestion().getContent());
-        question.setQuestionId(askedQuestion.getId());
+            possibleAnswers.put("true", "Vrai");
+            possibleAnswers.put("false", "Faux");
 
-        List<String> possibleAnswers = new ArrayList<String>();
-        possibleAnswers.add("true");
-        possibleAnswers.add("false");
+        } catch (ResourceAccessException rae) {
+            question.setQuestion("ERROR : no connection to server !");
+        }
+
         question.setPossibleAnswers(possibleAnswers);
 
         return question;

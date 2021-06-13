@@ -7,18 +7,19 @@ import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 
 /**
+ * Close the provided Frame.
  * @author djer13
- * 
  */
 public class QuitAction extends AbstractAction {
 
     /** serialVersionUID */
     private static final long serialVersionUID = -5351798466780811447L;
 
+    /** Frame to send the close window event. **/
     private JFrame frameToClose;
 
-    public QuitAction(String text, JFrame frameToClose) {
-        super(text);
+    public QuitAction(String displayMessage, JFrame frameToClose) {
+        super(displayMessage);
         this.frameToClose = frameToClose;
     }
 

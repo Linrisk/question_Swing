@@ -1,6 +1,7 @@
 package fr.gamedev.question.swing.question.swing;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author djer13
@@ -9,11 +10,8 @@ import java.util.ArrayList;
 public class Question {
 
     private long questionId;
-
     private String question;
-
-    private Iterable<String> possibleAnswers = new ArrayList<String>();
-
+    private Map<String, String> possibleAnswers = new HashMap<>();
     private String userAnswer;
 
     /**
@@ -47,14 +45,14 @@ public class Question {
     /**
      * @return the possibleAnswers
      */
-    public Iterable<String> getPossibleAnswers() {
+    public Map<String, String> getPossibleAnswers() {
         return possibleAnswers;
     }
 
     /**
      * @param possibleAnswers the possibleAnswers to set
      */
-    public void setPossibleAnswers(Iterable<String> possibleAnswers) {
+    public void setPossibleAnswers(Map<String, String> possibleAnswers) {
         this.possibleAnswers = possibleAnswers;
     }
 

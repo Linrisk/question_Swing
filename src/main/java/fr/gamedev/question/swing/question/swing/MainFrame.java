@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * 
+ * Main Frame to display a question to user an collect is answer.
  * @author djer13
  */
 @Component
@@ -26,37 +26,36 @@ public class MainFrame extends JFrame {
     private JMenuBar menuBar;
     private JMenu menuFile;
     private JMenuItem quitMenu;
+
     private QuitAction quitAction;
 
     private JPanel mainPan;
     private QuestionPanel questionPan;
-
     private AnswerPanel answerPan;
 
-    public MainFrame(@Autowired QuestionPanel theQuestionpan, @Autowired AnswerPanel theAnswerPanel) {
-        questionPan = theQuestionpan;
-        answerPan = theAnswerPanel;
+    private String userId = "test0";
 
+    public MainFrame(@Autowired QuestionPanel theQuestionPan, @Autowired AnswerPanel theAnswerPan) {
+        questionPan = theQuestionPan;
+        answerPan = theAnswerPan;
+
+        //collect data
+        questionPan.setUserId(userId);
+        questionPan.displayQuestion();
+        answerPan.setTheQuestion(questionPan.getTheQuestion());
+
+        //Menu
         quitAction = new QuitAction("Fermer", this);
+        initializeMenu();
 
-        //menuBar
-        menuBar = new JMenuBar();
-        menuFile = new JMenu("Fichier");
-        quitMenu = new JMenuItem(quitAction);
-
-        menuFile.add(quitMenu);
-        menuBar.add(menuFile);
-
-        super.setJMenuBar(menuBar);
-
-        // -- Exit button
-        exit = new JButton(quitAction);//create button
-
+        //display content
         mainPan = new JPanel();
         mainPan.setLayout(new BoxLayout(mainPan, BoxLayout.PAGE_AXIS));
 
         mainPan.add(questionPan);
         mainPan.add(answerPan);
+
+        exit = new JButton(quitAction);
 
         this.getContentPane().add(exit, BorderLayout.PAGE_END);
         this.getContentPane().add(mainPan, BorderLayout.CENTER);
@@ -65,4 +64,17 @@ public class MainFrame extends JFrame {
         super.setSize(400, 200);
     }
 
+    /**
+     * Create and set the menu in the current Frame.
+     */
+    private void initializeMenu() {
+        menuBar = new JMenuBar();
+        menuFile = new JMenu("Fichier");
+        quitMenu = new JMenuItem(quitAction);
+
+        menuFile.add(quitMenu);
+        menuBar.add(menuFile);
+
+        super.setJMenuBar(menuBar);
+    }
 }
