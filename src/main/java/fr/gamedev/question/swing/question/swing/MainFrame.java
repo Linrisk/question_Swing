@@ -22,6 +22,8 @@ public class MainFrame extends JFrame {
     /** serialVersionUID */
     private static final long serialVersionUID = 2827577217081048727L;
 
+    private String frameName = "GD - Module Question";
+
     private JButton exit;
     private JMenuBar menuBar;
     private JMenu menuFile;
@@ -38,6 +40,9 @@ public class MainFrame extends JFrame {
     public MainFrame(@Autowired QuestionPanel theQuestionPan, @Autowired AnswerPanel theAnswerPan) {
         questionPan = theQuestionPan;
         answerPan = theAnswerPan;
+
+        this.setName(frameName);
+        this.setTitle(frameName);
 
         //collect data
         questionPan.setUserId(userId);
