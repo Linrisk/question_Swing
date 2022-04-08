@@ -12,6 +12,7 @@ public class MainFrame extends JFrame {
     private static final long serialVersionUID = 2827577217081048727L;
 
     private JButton exit;
+    //bidule 
 
     public MainFrame() {
         exit = new JButton("quitter ?");//create button  
